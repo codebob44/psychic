@@ -21,17 +21,23 @@ var losses = 0;
 // generate a random letter and assign it to variable letterToGuess
 var updateLetterToGuess = function() {
 	this.letterToGuess = this.letters[Math.floor(Math.random() * this.letters.length)];
+	console.log(this.letterToGuess);
 };
+updateLetterToGuess();
 
 // set variable guessesLeft equal to it's HTML counterpart
 var updateGuessesLeft = function() {
-
+	document.querySelector("#guesses-left").innerHTML = guessesLeft;
+	console.log(guessesLeft);
 };
+updateGuessesLeft();
 
 // display guesses player has tried
-var updateGuessedLetters = function() {
-
+var updateGuessesSoFar = function() {
+	document.querySelector("guesses-so-far").innerHTML = guessedLetters.join(", ");
+	console.log(guessedLetters);
 };
+updateGuessesSoFar();
 
 var reset = function() {
 
