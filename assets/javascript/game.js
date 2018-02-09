@@ -32,17 +32,70 @@ var updateGuessesLeft = function() {
 };
 updateGuessesLeft();
 
-// display guesses player has tried
 var updateGuessesSoFar = function() {
-	document.querySelector("guesses-so-far").innerHTML = guessedLetters.join(", ");
-	console.log(guessedLetters);
-};
+      // Here we take the guesses the user has tried -- then display it as letters separated by commas.
+      document.querySelector("#guesses-so-far").innerHTML = guessedLetters.join(", ");
+    };
+// display guesses player has tried
+// var updateGuessesSoFar = function() {
+// 	document.querySelector("guesses-so-far").innerHTML = guessedLetters.join(", ");
+// 	console.log(guessedLetters);
+// };
 updateGuessesSoFar();
 
+// reset function to start back at the beginning 
 var reset = function() {
-
+	totalGuesses = 9;
+	guessesLeft = 9;
+	guessedLetters = [];
+	updateLetterToGuess();
+	updateGuessesLeft();
+	updateGuessesSoFar();
 };
 
 // load game when page opens
+updateLetterToGuess();
+updateGuessesLeft();
 
 // onkeyup function to capture letters guessed and use it for game logic
+document.onkeyup = function(event) {
+	console.log(event);
+	// decrement guesses
+	guessesLeft--;
+
+	// normalise chosen letter to lower case
+	var letter = String.fromCharCode(event.keyCode).toLowerCase();
+	console.log(letter);
+
+	// add guessed letter to guessedLetters array
+	guessedLetters.push(letter);
+	console.log(guessedLetters);
+
+	// update guessesLeft and guessesSoFar
+	updateGuessesLeft();
+	updateGuessesSoFar();
+
+
+	// check if the guessed letter is correct
+	if (letter === letterToGuess) {
+
+		// increment wins
+		wins++;
+		document.querySelector("#wins").innerHTML = wins;
+
+		// reset the game to play again
+		reset();
+	}
+
+	// when player runs out of guesses
+	if (guessesLeft === 0) {
+
+		// increment losses because we lost this time
+		losses++;
+		document.querySelector("#losses").innerHTML = losses;
+
+		// reset the game to play again
+		reset();
+	} 
+
+};
